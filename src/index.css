@@ -1,0 +1,310 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  /* Corporate mode: Ink Wash palette (default) */
+  :root {
+    --font-heading: "DM Serif Display", serif;
+    --background: 60 100% 95%;
+    --foreground: 0 0% 29%;
+
+    --card: 60 50% 97%;
+    --card-foreground: 0 0% 29%;
+
+    --popover: 60 50% 97%;
+    --popover-foreground: 0 0% 29%;
+
+    --primary: 212 16% 51%;
+    --primary-foreground: 60 100% 95%;
+
+    --secondary: 0 0% 80%;
+    --secondary-foreground: 0 0% 29%;
+
+    --muted: 0 0% 80%;
+    --muted-foreground: 0 0% 45%;
+
+    --accent: 212 16% 51%;
+    --accent-foreground: 60 100% 95%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 0 0% 80%;
+    --input: 0 0% 80%;
+    --ring: 212 16% 51%;
+
+    --radius: 0.5rem;
+
+    --surface-dark: 0 0% 29%;
+    --surface-dark-foreground: 60 100% 95%;
+
+    --sidebar-background: 60 50% 97%;
+    --sidebar-foreground: 0 0% 29%;
+    --sidebar-primary: 212 16% 51%;
+    --sidebar-primary-foreground: 60 100% 95%;
+    --sidebar-accent: 0 0% 90%;
+    --sidebar-accent-foreground: 0 0% 29%;
+    --sidebar-border: 0 0% 80%;
+    --sidebar-ring: 212 16% 51%;
+  }
+
+  /* Dude mode: Dark Cyan palette */
+  .dude-mode {
+    --background: 225 27% 5%;
+    --foreground: 210 1% 78%;
+
+    --card: 213 25% 12%;
+    --card-foreground: 210 1% 78%;
+
+    --popover: 213 25% 12%;
+    --popover-foreground: 210 1% 78%;
+
+    --primary: 174 96% 69%;
+    --primary-foreground: 225 27% 5%;
+
+    --secondary: 213 25% 20%;
+    --secondary-foreground: 210 1% 78%;
+
+    --muted: 213 25% 16%;
+    --muted-foreground: 210 1% 60%;
+
+    --accent: 177 39% 45%;
+    --accent-foreground: 210 1% 78%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 1% 78%;
+
+    --border: 213 25% 20%;
+    --input: 213 25% 20%;
+    --ring: 174 96% 69%;
+
+    --surface-dark: 213 25% 16%;
+    --surface-dark-foreground: 210 1% 78%;
+
+    --sidebar-background: 213 25% 12%;
+    --sidebar-foreground: 210 1% 78%;
+    --sidebar-primary: 174 96% 69%;
+    --sidebar-primary-foreground: 225 27% 5%;
+    --sidebar-accent: 213 25% 20%;
+    --sidebar-accent-foreground: 210 1% 78%;
+    --sidebar-border: 213 25% 20%;
+    --sidebar-ring: 174 96% 69%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-body antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading;
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)));
+  }
+
+  .section-padding {
+    @apply py-24 md:py-32 lg:py-40;
+  }
+
+  .container-wide {
+    @apply mx-auto max-w-7xl px-6 md:px-8 lg:px-12;
+  }
+
+  .surface-dark {
+    background-color: hsl(var(--surface-dark));
+    color: hsl(var(--surface-dark-foreground));
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+::selection {
+  background: hsl(var(--primary) / 0.2);
+  color: hsl(var(--foreground));
+}
+
+/* ── Neon Button System ─────────────────────────────────────────── */
+
+/* Base neon-btn: looks normal in corporate mode */
+.neon-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.6rem 0.375rem 0.6rem 1.5rem;
+  border-radius: 9999px;
+  font-family: var(--font-body, sans-serif);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
+  transition: filter 0.3s ease, box-shadow 0.3s ease, background 0.4s ease;
+  background: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+  border: 2px solid transparent;
+}
+
+.neon-btn:hover {
+  filter: brightness(1.1);
+}
+
+/* Arrow circle — hidden in corporate */
+.neon-btn .neon-arrow {
+  display: none;
+}
+
+/* ── Dude mode overrides ───────────────────────────────────────── */
+
+.dude-mode .neon-btn {
+  background: transparent;
+  color: #fff;
+  border-color: var(--neon-dot, #06b6d4);
+  box-shadow: 0 0 12px color-mix(in srgb, var(--neon-dot, #06b6d4) 25%, transparent);
+  padding: 0.5rem 0.375rem 0.5rem 1.5rem;
+}
+
+.dude-mode .neon-btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  background: var(--neon-gradient, linear-gradient(90deg, #7c3aed, #ec4899));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 0;
+}
+
+.dude-mode .neon-btn:hover::before {
+  opacity: 1;
+}
+
+.dude-mode .neon-btn:hover {
+  filter: none;
+  box-shadow: 0 0 22px color-mix(in srgb, var(--neon-dot, #06b6d4) 45%, transparent);
+}
+
+.dude-mode .neon-btn .neon-label {
+  position: relative;
+  z-index: 1;
+}
+
+/* Arrow circle — visible in dude mode */
+.dude-mode .neon-btn .neon-arrow {
+  display: flex;
+  position: relative;
+  z-index: 1;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 9999px;
+  background: var(--neon-dot, #06b6d4);
+  flex-shrink: 0;
+  margin-left: 0.5rem;
+  transition: background 0.3s ease;
+}
+
+/* Secondary / outline neon variant */
+.neon-btn-secondary {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.25rem;
+  border-radius: 9999px;
+  font-family: var(--font-body, sans-serif);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
+  transition: filter 0.3s ease, box-shadow 0.3s ease;
+  background: hsl(var(--secondary));
+  color: hsl(var(--secondary-foreground));
+  border: 2px solid transparent;
+}
+
+.neon-btn-secondary:hover {
+  filter: brightness(1.1);
+}
+
+.dude-mode .neon-btn-secondary {
+  background: transparent;
+  color: #fff;
+  border-color: #3b82f6;
+  box-shadow: 0 0 10px rgba(59,130,246,0.2);
+}
+
+.dude-mode .neon-btn-secondary::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, #3b82f6, #06b6d4);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 0;
+}
+
+.dude-mode .neon-btn-secondary:hover::before {
+  opacity: 1;
+}
+
+.dude-mode .neon-btn-secondary:hover {
+  filter: none;
+  box-shadow: 0 0 20px rgba(59,130,246,0.4);
+}
+
+.dude-mode .neon-btn-secondary > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Ghost text link neon */
+.dude-mode .neon-link {
+  color: #67e8f9 !important;
+  text-shadow: 0 0 8px rgba(103,232,249,0.5);
+}
+
+/* ============================================================
+   DUDE MODE: Blur-in transition on toggle
+   ============================================================ */
+@keyframes dudeBlurIn {
+  0% {
+    filter: blur(20px);
+    opacity: 0.4;
+  }
+  60% {
+    filter: blur(6px);
+    opacity: 0.85;
+  }
+  100% {
+    filter: blur(0px);
+    opacity: 1;
+  }
+}
+
+.dude-blur-in {
+  animation: dudeBlurIn 0.75s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+
